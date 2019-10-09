@@ -1,6 +1,6 @@
 #include <iostream>
 #include <stdlib.h>
-#include "paillier.h"
+#include "threshold_paillier.h"
 
 using namespace std;
 using namespace NTL;
