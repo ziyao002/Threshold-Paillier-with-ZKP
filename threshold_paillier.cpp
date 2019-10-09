@@ -139,9 +139,9 @@ NTL::ZZ Threshold_Paillier::partial_decrypt( NTL::ZZ& ciphertext, NTL::ZZ& fi){
 }
 
 NTL::ZZ Threshold_Paillier::combine_partial_decrypt(NTL::ZZ& c1, NTL::ZZ& c2, NTL::ZZ& c3){
-	/* Paillier partial decryption function. Takes in a ciphertext in F(modulus**2), and returns a partial decryption in the same space.
+	/* Combine the partial decryptions to obtain the decryption of the original ciphertext.
      *
-      * Parameters
+     * Parameters
      * ==========
      * NTL::ZZ c1, c2, c3 : the partial decryptions.
      *
