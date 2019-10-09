@@ -251,21 +251,21 @@ bool Threshold_Paillier::ZKP_for_partial_decryption(NTL::ZZ& ciphertext, NTL::ZZ
 	ZKP_gen_R(ciphertext, r1, R11, R12);																	// P1 generates R11, R12 and r1, and sends R11, R12 to the verifiers, i.e., P2 and P3
 	cc1 = ZKP_gen_cc();																						// Verifier, i.e., P2 and P3, sends cc1 to P1
 	z1 = ZKP_comput_z(r1, cc1, f1);																			// P1 computes z1 according to the cc1, r1 and f1
-	bool check1 = ZKP_check(ciphertext, c1, R11, R12, cc1, z1, vk1);										// Verifier, i.e., P2 and P3, checks two equalities for ZKP of partial decrption
+	bool check1 = ZKP_check(ciphertext, c1, R11, R12, cc1, z1, vk1);										// Verifier, i.e., P2 and P3, checks two equalities for ZKP of partial decryption
 	
 	NTL::ZZ r2, R21, R22, cc2, z2;																			// P2's parameters for ZKP
 	ZKP_gen_R(ciphertext, r2, R21, R22);																	// P2 generates R21, R22 and r2, and sends R21, R22 to the verifiers, i.e., P1 and P3
 	cc2 = ZKP_gen_cc();																						// Verifier, i.e., P1 and P3, sends cc2 to P2
 	z2 = ZKP_comput_z(r2, cc2, f2);																			// P2 computes z2 according to the cc2, r2 and f2
-	bool check2 = ZKP_check(ciphertext, c2, R21, R22, cc2, z2, vk2);										// Verifier, i.e., P1 and P3, checks two equalities for ZKP of partial decrption
+	bool check2 = ZKP_check(ciphertext, c2, R21, R22, cc2, z2, vk2);										// Verifier, i.e., P1 and P3, checks two equalities for ZKP of partial decryption
 	
 	NTL::ZZ r3, R31, R32, cc3, z3;																			// P3's parameters for ZKP
 	ZKP_gen_R(ciphertext, r3, R31, R32);																	// P3 generates R31, R32 and r3, and sends R31, R32 to the verifiers, i.e., P1 and P2
 	cc3 = ZKP_gen_cc();																						// Verifier, i.e., P1 and P2, sends cc3 to P3
 	z3 = ZKP_comput_z(r3, cc3, f3);																			// P3 computes z3 according to the cc3, r3 and f3
-	bool check3 = ZKP_check(ciphertext, c3, R31, R32, cc3, z3, vk3);										// Verifier, i.e., P1 and P2, checks two equalities for ZKP of partial decrption
+	bool check3 = ZKP_check(ciphertext, c3, R31, R32, cc3, z3, vk3);										// Verifier, i.e., P1 and P2, checks two equalities for ZKP of partial decryption
 	
-	bool ZKP_check = check1 and check2 and check3;															// ZKP for partial decrption is successful only when all the partial checks are successful
+	bool ZKP_check = check1 and check2 and check3;															// ZKP for partial decryption is successful only when all the partial checks are successful
 	
 	return ZKP_check;
 }
