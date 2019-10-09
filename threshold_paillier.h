@@ -33,5 +33,4 @@ class Threshold_Paillier {
 	NTL::ZZ a1, a2;				// private to the trust dealer
 
     NTL::ZZ L_function(const NTL::ZZ& x) { return (x - 1) / modulus; }
-    void GenSafePrimePair(NTL::ZZ& p, NTL::ZZ& q, NTL::ZZ& pp, NTL::ZZ& qq, long keyLength); 
 };

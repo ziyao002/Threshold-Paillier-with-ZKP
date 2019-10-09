@@ -44,6 +44,29 @@ NTL::ZZ lcm(const NTL::ZZ& x, const NTL::ZZ& y){
 	return lcm;
 }
 
+void GenSafePrimePair(NTL::ZZ& p, NTL::ZZ& q, NTL::ZZ& pp, NTL::ZZ& qq, long keyLength){
+	/* Coprime generation function. Generates a random coprime number of n.
+	 *
+     * Parameters
+     * ==========
+     * NTL::ZZ p, q, pp, qq: // p and q are safe primes in the same bit length, i.e., p = 2 * pp + 1 and q = 2 * qq + 1, where pp and qq are primes.
+     * long keyLength: the length of the key.
+     */
+	while (true) {
+        long err = 80;
+        pp = NTL::GenGermainPrime_ZZ(keyLength/2, err); 
+        qq = NTL::GenGermainPrime_ZZ(keyLength/2, err);
+        while (pp == qq) {
+            qq = NTL::GenGermainPrime_ZZ(keyLength/2, err);
+        }
+		p = 2 * pp + 1;
+		q = 2 * qq + 1;
+        NTL::ZZ n = p * q;
+        NTL::ZZ phi = (p - 1) * (q - 1);
+        if (NTL::GCD(n, phi) == 1) return;
+    }
+}
+
 Threshold_Paillier::Threshold_Paillier(const long keyLength = 512) {
 	/* Threshold Paillier parameters generation function. Generates threshold paillier parameters from scrach.
 	 *
@@ -81,29 +104,6 @@ Threshold_Paillier::Threshold_Paillier(const long keyLength = 512) {
 	vk2 = NTL::PowerMod(vk, delta * f2, modulus * modulus);
 	vk3 = NTL::PowerMod(vk, delta * f3, modulus * modulus);
 
-}
-
-void Threshold_Paillier::GenSafePrimePair(NTL::ZZ& p, NTL::ZZ& q, NTL::ZZ& pp, NTL::ZZ& qq, long keyLength){
-	/* Coprime generation function. Generates a random coprime number of n.
-	 *
-     * Parameters
-     * ==========
-     * NTL::ZZ p, q, pp, qq: // p and q are safe primes in the same bit length, i.e., p = 2 * pp + 1 and q = 2 * qq + 1, where pp and qq are primes.
-     * long keyLength: the length of the key.
-     */
-	while (true) {
-        long err = 80;
-        pp = NTL::GenGermainPrime_ZZ(keyLength/2, err); 
-        qq = NTL::GenGermainPrime_ZZ(keyLength/2, err);
-        while (pp == qq) {
-            qq = NTL::GenGermainPrime_ZZ(keyLength/2, err);
-        }
-		p = 2 * pp + 1;
-		q = 2 * qq + 1;
-        NTL::ZZ n = p * q;
-        NTL::ZZ phi = (p - 1) * (q - 1);
-        if (NTL::GCD(n, phi) == 1) return;
-    }
 }
 
 NTL::ZZ Threshold_Paillier::encrypt(NTL::ZZ& message){
@@ -164,10 +164,6 @@ NTL::ZZ Threshold_Paillier::combine_partial_decrypt(NTL::ZZ& c1, NTL::ZZ& c2, NT
 	NTL::ZZ M = NTL::MulMod(L_function(product), Inv_temp, modulus);
     return M;
 }
-
-
-
-
 
 void Threshold_Paillier::ZKP_gen_R(NTL::ZZ& c, NTL::ZZ& r, NTL::ZZ& R1, NTL::ZZ& R2){
 	/* Pi's R and r generation function for ZKP.
