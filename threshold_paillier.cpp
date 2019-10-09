@@ -75,7 +75,7 @@ Threshold_Paillier::Threshold_Paillier(const long keyLength = 512) {
      * long keyLength: the length of the key.
      * 
      * =======
-     * public key  = (modulus, g, theta).
+     * public key  = (modulus, generator, theta).
 	 * private key = beta * m.
      */
     GenSafePrimePair(p, q, pp, qq, keyLength);								// p and q are safe primes, i.e., p = 2 * pp + 1 and q = 2 * qq + 1, where pp and qq are primes
